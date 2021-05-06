@@ -48,4 +48,22 @@ class PhotosController < ApplicationController
 
   end
 
+  def update
+
+    input_image = params.fetch("query_image")
+    input_caption = params.fetch("query_caption")
+
+    matching_photos = Photo.where({ :id => params.fetch("modify_id") })
+
+    the_photo = matching_photos.at(0)
+
+    the_photo.image = input_image
+    the_photo.caption = input_caption
+
+    the_photo.save
+
+    redirect_to("/photos/" + the_photo.id.to_s) 
+  
+  end
+
 end
